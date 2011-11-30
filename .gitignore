@@ -1,3 +1,5 @@
 virtualenv/
-project/
 .idea/
+
+.DS_Store
+project/static/cssreload/
