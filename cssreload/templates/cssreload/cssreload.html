@@ -1,0 +1,10 @@
+<link rel="stylesheet" href="{{ STATIC_URL }}cssreload/cssreload.css">
+<div id="django-cssreload">
+  CSS Reload:
+  <a href="#" class="disable">On</a>
+  <a href="#" class="enable">Off</a>
+</div>
+<script type="text/javascript" src="{{ STATIC_URL }}cssreload/cssreload.js"></script>
+<script type="text/javascript">
+  new django_cssreload('{{ STATIC_URL }}', '{{ VIEW_URL }}');
+</script>

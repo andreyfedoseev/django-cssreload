@@ -1,0 +1,35 @@
+#django-cssreload {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #333;
+  padding: 4px 7px;
+  -webkit-border-bottom-right-radius: 3px;
+  -moz-border-radius-bottomright: 3px;
+  border-bottom-right-radius: 3px;
+  color: #fff;
+  font: 12px sans-serif;
+}
+
+#django-cssreload a {
+  text-decoration: none;
+  border-bottom: 1px dotted;
+  text-transform: uppercase;
+}
+
+#django-cssreload a.disable {
+  display: none;
+  color: #66ff66;
+}
+
+#django-cssreload a.enable {
+  color: #ff6666;
+}
+
+#django-cssreload.enabled a.disable {
+  display: inline;
+}
+
+#django-cssreload.enabled a.enable {
+  display: none;
+}
