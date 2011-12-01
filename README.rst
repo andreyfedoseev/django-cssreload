@@ -13,3 +13,6 @@ Installation
 
 After that you'll have a widget to turn CSS reload on and off on every page.
 
+Demo
+-------
+See demo video: http://youtu.be/ORYXttB7Nmc
