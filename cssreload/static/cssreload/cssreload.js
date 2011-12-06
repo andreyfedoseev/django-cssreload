@@ -1,4 +1,37 @@
 function django_cssreload(STATIC_URL, view) {
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    function sameOrigin(url) {
+        // url could be relative or scheme relative or absolute
+        var host = document.location.host; // host + port
+        var protocol = document.location.protocol;
+        var sr_origin = '//' + host;
+        var origin = protocol + sr_origin;
+        // Allow absolute or scheme relative URLs to same origin
+        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+            // or any other URL that isn't scheme relative or absolute i.e relative.
+            !(/^(\/\/|http:|https:).*/.test(url));
+    }
+    function safeMethod(method) {
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+
+
   if (!STATIC_URL.match(/^https?:\/\//)) {
     STATIC_URL = window.location.protocol + "//" + window.location.host + STATIC_URL;
   }
@@ -41,8 +74,10 @@ function django_cssreload(STATIC_URL, view) {
       data = data + "s=" + encodeURIComponent(path);
     }
     var request = new XMLHttpRequest();
-    request.open("POST", view, true);
-    request.onreadystatechange = function() {
+      request.open("POST", view, true);
+      request.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+      request.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+      request.onreadystatechange = function() {
       if (request.readyState == 4 && request.status == 200) {
         var response = JSON.parse(request.responseText);
         for (var path in response) {
