@@ -10,7 +10,7 @@ def cssreload(request):
 
     data = {}
     for stylesheet in request.POST.getlist("s"):
-        path = os.path.join(settings.STATIC_ROOT, stylesheet.replace("/", os.sep))
+        path = os.path.join(settings.STATIC_ROOT, stylesheet.split('?', 1)[0].replace("/", os.sep))
         if os.path.exists(path):
             data[stylesheet] = os.path.getmtime(path)
 
